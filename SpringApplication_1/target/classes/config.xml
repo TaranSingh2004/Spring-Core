@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--  This is for simple values -->
+    <bean class="bean.Student" name="student1">
+        <property name="rollno">
+            <value>22344</value>
+        </property>
+        <property name="name">
+            <value>John</value>
+        </property>
+
+        <property name="email">
+            <value>john@xyz.com</value>
+        </property>
+
+    </bean>
+    <bean class="bean.Student" name="student2">
+        <property name="rollno">
+            <value>0001</value>
+        </property>
+        <property name="name">
+            <value>Taran</value>
+        </property>
+
+        <property name="email">
+            <value>taran@gmail.com</value>
+        </property>
+    </bean>
+
+
+
+<!--    this is for setting collection values -->
+    <bean class="bean.Emp" name="emp1">
+        <property name="name" value="Taran"/>
+        <property name="phones">
+            <list>
+                <value>892988856</value>
+                <value>892927689</value>
+                <value>978826526</value>
+                <null/>
+            </list>
+        </property>
+        <property name="addresses">
+            <set>
+                <value>delhi</value>
+                <value>canada</value>
+                <value>usa</value>
+            </set>
+        </property>
+        <property name="courses">
+            <map>
+                <entry key="java" value="2months"/>
+                <entry key="python" value="1month"/>
+                <entry key="c" value="1month"/>
+            </map>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="name">taran</prop>
+                <prop key="class">cse1</prop>
+            </props>
+        </property>
+    </bean>
+
+
+
+<!--    this is for reference injecting-->
+    <bean class="bean.B" name="bref">
+        <property name="y" value="12"/>
+    </bean>
+    <bean class="bean.A" name="aref">
+        <property name="x" value="13"/>
+        <property name="ob">
+            <ref bean ="bref"/>
+        </property>
+    </bean>
+
+
+
+<!--    this is for constructor injection-->
+    <bean class="bean.Certi" name="certi">
+        <constructor-arg value="Andriod using kotlin"/>
+    </bean>
+    <bean class="bean.Person" name="person">
+        <constructor-arg value="Durgesh"/>
+        <constructor-arg value="12" type="int"/>
+        <constructor-arg>
+            <ref bean="certi"/>
+        </constructor-arg>
+    </bean>
+
+
+<!--    this is for ambiguity-->
+    <bean class="bean.Addition" name="add">
+        <constructor-arg value="12" type="int" index="1"/>
+        <constructor-arg value="24" type="int" index="0"/>
+    </bean>
+
+
+
+
+<!--    this is implementing lifecycle methods using xml-->
+    <bean class="lifecycle.Samosa" name="samosa" init-method="init" destroy-method="destroy">
+        <property name="price" value="20"/>
+    </bean>
+
+
+
+    <!--    this is implementing lifecycle methods using interface-->
+    <bean class="lifecycle.Pepsi" name="p1">
+        <property name="price" value="50"/>
+    </bean>
+
+
+
+<!--    this is for eanbling all annotations-->
+    <context:annotation-config/>
+
+    <!--    this is implementing lifecycle methods using annotation-->
+    <bean class="lifecycle.Rolls" name="r1">
+        <property name="price" value="50"/>
+    </bean>
+
+
+<!--    this is for enabling only these two annotations postconstruct and predestroy-->
+    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
+
+</beans>
